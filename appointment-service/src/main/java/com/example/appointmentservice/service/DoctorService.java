@@ -2,7 +2,6 @@ package com.example.appointmentservice.service;
 
 import com.example.appointmentservice.dto.ApiResponseError;
 import com.example.appointmentservice.dto.DoctorAvailabilityResponse;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,7 +17,6 @@ public class DoctorService {
         this.doctorServiceClient = doctorServiceClient;
     }
 
-    @CircuitBreaker(name = "doctorServiceCB", fallbackMethod = "getDoctorFallback")
     @Retry(name = "patientRetry", fallbackMethod = "getDoctorFallback")
     public Object getDoctor(String doctorId, String date, String time) {
         DoctorAvailabilityResponse response = doctorServiceClient.getForObject(
