@@ -31,4 +31,5 @@ public class AppointmentController {
             @Valid @RequestBody AddAppointmentRequest request) {
         return appointmentService.addAppointment(request);
     }
+
 }

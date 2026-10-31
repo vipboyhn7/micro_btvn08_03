@@ -46,3 +46,13 @@ CircuitBreaker 'doctorServiceCB' changed state from CLOSED to OPEN
 Khi lỗi kết nối chỉ xảy ra tạm thời, `patientRetry` sẽ thử tối đa 3 lần,
 mỗi lần cách nhau 2 giây. Chỉ lỗi `ResourceAccessException` được retry; sau
 khi cả 3 lần đều thất bại, fallback trả HTTP `503`.
+
+## Rate Limiter tìm kiếm bác sĩ
+
+```http
+GET http://localhost:8083/api/v1/doctors/search?name=huong
+```
+
+API cho phép tối đa 5 request trong mỗi 10 giây. Request thứ 6 nhận HTTP `429`
+ngay lập tức với JSON lỗi `Too Many Requests`; Rate Limiter không chờ để cấp
+quyền truy cập.

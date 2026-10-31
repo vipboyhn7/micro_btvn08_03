@@ -38,4 +38,11 @@ public class DoctorService {
                 "Doctor Service Error",
                 Instant.now());
     }
+
+    public Object searchDoctors(String name) {
+        return doctorServiceClient.getForObject(
+                "/api/doctors/search?name={name}",
+                Object.class,
+                name);
+    }
 }
